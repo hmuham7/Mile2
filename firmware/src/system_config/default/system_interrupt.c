@@ -139,12 +139,7 @@ void Usart0_InitializeQueue() {
 void InitializeISRQueues() {
     Usart0_InitializeQueue();
 }
- void IntHandlerDrvUsartInstance0(void)
-{
-    DRV_USART_TasksTransmit(sysObj.drvUsart0);
-    DRV_USART_TasksReceive(sysObj.drvUsart0);
-    DRV_USART_TasksError(sysObj.drvUsart0);
-}
+
  
  
  

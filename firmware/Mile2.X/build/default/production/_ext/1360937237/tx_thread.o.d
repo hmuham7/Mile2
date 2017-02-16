@@ -262,4 +262,7 @@ build/default/production/_ext/1360937237/tx_thread.o:  \
  ../src/control.h  \
 ../src/motor.h  \
 ../src/tx_thread.h  \
-../src/rx_thread.h 
+../src/rx_thread.h  \
+ ../src/message_controller_thread.h  \
+../src/messages.h  \
+../src/debug.h 

@@ -1,5 +1,6 @@
-build/default/production/_ext/327000265/drv_usart_static_byte_model.o:  \
- ../src/system_config/default/framework/driver/usart/src/drv_usart_static_byte_model.c  \
+build/default/production/_ext/1360937237/message_controller_thread.o:  \
+ ../src/message_controller_thread.c  \
+../src/message_controller_thread.h  \
  ../src/system_config/default/system_config.h  \
  ../src/system_config/default/system_definitions.h  \
  ../../../../framework/system/common/sys_common.h  \

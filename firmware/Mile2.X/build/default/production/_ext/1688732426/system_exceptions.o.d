@@ -263,4 +263,6 @@ build/default/production/_ext/1688732426/system_exceptions.o:  \
 ../src/system_config/default/system_definitions.h  \
  ../src/motor.h  \
 ../src/tx_thread.h  \
-../src/rx_thread.h 
+../src/messages.h  \
+../src/rx_thread.h  \
+ ../src/message_controller_thread.h 

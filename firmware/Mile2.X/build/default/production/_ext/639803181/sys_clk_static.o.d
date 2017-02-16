@@ -261,4 +261,6 @@ build/default/production/_ext/639803181/sys_clk_static.o:  \
  ../src/control.h  \
 ../src/motor.h  \
 ../src/tx_thread.h  \
-../src/rx_thread.h 
+../src/messages.h  \
+ ../src/rx_thread.h  \
+../src/message_controller_thread.h 

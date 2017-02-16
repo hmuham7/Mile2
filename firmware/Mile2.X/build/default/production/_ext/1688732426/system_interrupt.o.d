@@ -261,5 +261,8 @@ build/default/production/_ext/1688732426/system_interrupt.o:  \
  ../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h  \
  ../src/motor.h  \
 ../src/tx_thread.h  \
+../src/messages.h  \
 ../src/rx_thread.h  \
- ../src/system_config/default/system_definitions.h 
+ ../src/message_controller_thread.h  \
+ ../src/system_config/default/system_definitions.h  \
+../src/debug.h 
