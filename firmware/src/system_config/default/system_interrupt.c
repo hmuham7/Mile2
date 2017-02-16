@@ -67,6 +67,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "rx_thread.h"
 #include "message_controller_thread.h"
 #include "system_definitions.h"
+#include "debug.h"
 
 
 static QueueHandle_t _usartqueue;
@@ -123,7 +124,7 @@ void IntHandlerDrvUsartInstance0(void)
     //DRV_USART_TasksTransmit(sysObj.drvUsart0);
     DRV_USART_TasksReceive(sysObj.drvUsart0);
     DRV_USART_TasksError(sysObj.drvUsart0);
-//    dbgOutputLoc(LEAVE_USART0_ISR);
+    dbgOutputLoc(LEAVE_USART0_ISR);
     portEND_SWITCHING_ISR(pxHigherPriorityTaskWoken);
 }
 
