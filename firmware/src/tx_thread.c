@@ -1,9 +1,9 @@
 /*******************************************************************************
   MPLAB Harmony Application Source File
-  
+
   Company:
     Microchip Technology Inc.
-  
+
   File Name:
     tx_thread.c
 
@@ -11,8 +11,8 @@
     This file contains the source code for the MPLAB Harmony application.
 
   Description:
-    This file contains the source code for the MPLAB Harmony application.  It 
-    implements the logic of the application's state machine and it may call 
+    This file contains the source code for the MPLAB Harmony application.  It
+    implements the logic of the application's state machine and it may call
     API routines of other MPLAB Harmony modules in the system, such as drivers,
     system services, and middleware.  However, it does not call any of the
     system interfaces (such as the "Initialize" and "Tasks" functions) of any of
@@ -49,11 +49,15 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Included Files 
+// Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
 
 #include "tx_thread.h"
+//#include "tx_thread_public.h"
+//#include "system_interrupt_public.h"
+#include "debug.h"
+#include "messages.h"
 
 // *****************************************************************************
 // *****************************************************************************
@@ -61,48 +65,11 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 // *****************************************************************************
 // *****************************************************************************
 
-// *****************************************************************************
-/* Application Data
+static QueueHandle_t _queue;
 
-  Summary:
-    Holds application data
+#define SIZEOFQUEUE 64
+#define TYPEOFQUEUE Tx_Thead_Queue_DataType
 
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    This structure should be initialized by the APP_Initialize function.
-    
-    Application strings and buffers are be defined outside this structure.
-*/
-
-TX_THREAD_DATA tx_threadData;
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Functions
-// *****************************************************************************
-// *****************************************************************************
-
-/* TODO:  Add any necessary callback functions.
-*/
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Local Functions
-// *****************************************************************************
-// *****************************************************************************
-
-
-/* TODO:  Add any necessary local functions.
-*/
-
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Initialization and State Machine Functions
-// *****************************************************************************
-// *****************************************************************************
 
 /*******************************************************************************
   Function:
@@ -114,13 +81,7 @@ TX_THREAD_DATA tx_threadData;
 
 void TX_THREAD_Initialize ( void )
 {
-    /* Place the App state machine in its initial state. */
-    tx_threadData.state = TX_THREAD_STATE_INIT;
-
-    
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
+    TX_THREAD_InitializeQueue();
 }
 
 
@@ -134,43 +95,50 @@ void TX_THREAD_Initialize ( void )
 
 void TX_THREAD_Tasks ( void )
 {
+    dbgOutputLoc(ENTER_TXTHREAD);
+    Tx_Thead_Queue_DataType obj;
+    char packedMessage[MAXMESSAGESIZE];
+    dbgOutputLoc(BEFORE_WHILELOOP_RXTHREAD);
+    while(1){
+        //receive from our local queue
+        TX_THREAD_ReadFromQueue(&obj);
 
-    /* Check the application's current state. */
-    switch ( tx_threadData.state )
-    {
-        /* Application's initial state. */
-        case TX_THREAD_STATE_INIT:
-        {
-            bool appInitialized = true;
-       
-        
-            if (appInitialized)
-            {
-            
-                tx_threadData.state = TX_THREAD_STATE_SERVICE_TASKS;
-            }
-            break;
+        int length = CreateMessage(packedMessage, obj.Data, obj.Destination, obj.MessageCount);
+
+        dbgOutputLoc(BEFORE_SEND_TO_QUEUE_RXTHREAD);
+        int i = 0;
+        for(i = 0; i < length; i++) {
+            Usart0_SendToQueue(packedMessage[i]);
         }
-
-        case TX_THREAD_STATE_SERVICE_TASKS:
-        {
-        
-            break;
-        }
-
-        /* TODO: implement your application state machine.*/
-        
-
-        /* The default state should never be executed. */
-        default:
-        {
-            /* TODO: Handle error in application's state machine. */
-            break;
-        }
+        dbgOutputLoc(AFTER_SEND_TO_QUEUE_RXTHREAD);
+        SYS_INT_SourceEnable(INT_SOURCE_USART_1_TRANSMIT);
+        //after we finish sending packet; disable tx isr
     }
 }
 
- 
+void TX_THREAD_InitializeQueue() {
+    _queue = xQueueCreate(SIZEOFQUEUE, sizeof(TYPEOFQUEUE));
+    if(_queue == 0) {
+        /*Handle this Error*/
+        dbgOutputBlock(pdFALSE);
+    }
+}
+
+void TX_THREAD_ReadFromQueue(Tx_Thead_Queue_DataType *pvBuffer) {
+    dbgOutputLoc(BEFORE_RECEIVE_FR_QUEUE_TXTHREAD);
+    xQueueReceive(_queue, pvBuffer, portMAX_DELAY);
+    dbgOutputLoc(AFTER_RECEIVE_FR_QUEUE_TXTHREAD);
+}
+
+void TX_THREAD_SendToQueue(Tx_Thead_Queue_DataType buffer) {
+    xQueueSend(_queue, &buffer, portMAX_DELAY);
+}
+
+void TX_THREAD_SendToQueueISR(Tx_Thead_Queue_DataType buffer, BaseType_t *pxHigherPriorityTaskWoken) {
+    xQueueSendFromISR(_queue, &buffer, pxHigherPriorityTaskWoken);
+}
+
+
 
 /*******************************************************************************
  End of File

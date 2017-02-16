@@ -58,6 +58,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <stdlib.h>
 #include "system_config.h"
 #include "system_definitions.h"
+#include "messages.h"
 
 // DOM-IGNORE-BEGIN
 #ifdef __cplusplus  // Provide C++ Compatibility
@@ -65,7 +66,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 extern "C" {
 
 #endif
-// DOM-IGNORE-END 
+// DOM-IGNORE-END
 
 // *****************************************************************************
 // *****************************************************************************
@@ -73,65 +74,11 @@ extern "C" {
 // *****************************************************************************
 // *****************************************************************************
 
-// *****************************************************************************
-/* Application states
-
-  Summary:
-    Application states enumeration
-
-  Description:
-    This enumeration defines the valid application states.  These states
-    determine the behavior of the application at various times.
-*/
-
-typedef enum
-{
-	/* Application's state machine's initial state. */
-	TX_THREAD_STATE_INIT=0,
-	TX_THREAD_STATE_SERVICE_TASKS,
-
-	/* TODO: Define states used by the application state machine. */
-
-} TX_THREAD_STATES;
-
-
-// *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    Application strings and buffers are be defined outside this structure.
- */
-
-typedef struct
-{
-    /* The application's current state */
-    TX_THREAD_STATES state;
-
-    /* TODO: Define any additional data used by the application. */
-
-} TX_THREAD_DATA;
-
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Routines
-// *****************************************************************************
-// *****************************************************************************
-/* These routines are called by drivers when certain events occur.
-*/
-	
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Initialization and State Machine Functions
-// *****************************************************************************
-// *****************************************************************************
-
+typedef struct {
+    char Destination;
+    char MessageCount;
+    char Data[MAXMESSAGESIZE];
+} Tx_Thead_Queue_DataType;
 /*******************************************************************************
   Function:
     void TX_THREAD_Initialize ( void )
@@ -140,8 +87,8 @@ typedef struct
      MPLAB Harmony application initialization routine.
 
   Description:
-    This function initializes the Harmony application.  It places the 
-    application in its initial state and prepares it to run so that its 
+    This function initializes the Harmony application.  It places the
+    application in its initial state and prepares it to run so that its
     APP_Tasks function can be called.
 
   Precondition:
@@ -198,6 +145,9 @@ void TX_THREAD_Initialize ( void );
 
 void TX_THREAD_Tasks( void );
 
+void TX_THREAD_InitializeQueue();
+
+void TX_THREAD_ReadFromQueue(Tx_Thead_Queue_DataType pvBuffer[]);
 
 #endif /* _TX_THREAD_H */
 
@@ -210,4 +160,3 @@ void TX_THREAD_Tasks( void );
 /*******************************************************************************
  End of File
  */
-

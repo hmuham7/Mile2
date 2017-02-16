@@ -5,7 +5,7 @@
     Microchip Technology Inc.
 
   File Name:
-    rx_thread.h
+    message_controller_thread.h
 
   Summary:
     This header file provides prototypes and definitions for the application.
@@ -43,8 +43,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
  *******************************************************************************/
 //DOM-IGNORE-END
 
-#ifndef _RX_THREAD_H
-#define _RX_THREAD_H
+#ifndef _MESSAGE_CONTROLLER_THREAD_H
+#define _MESSAGE_CONTROLLER_THREAD_H
 
 // *****************************************************************************
 // *****************************************************************************
@@ -65,19 +65,83 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 extern "C" {
 
 #endif
-// DOM-IGNORE-END
+// DOM-IGNORE-END 
 
+// *****************************************************************************
+// *****************************************************************************
+// Section: Type Definitions
+// *****************************************************************************
+// *****************************************************************************
+
+// *****************************************************************************
+/* Application states
+
+  Summary:
+    Application states enumeration
+
+  Description:
+    This enumeration defines the valid application states.  These states
+    determine the behavior of the application at various times.
+*/
+
+typedef enum
+{
+	/* Application's state machine's initial state. */
+	MESSAGE_CONTROLLER_THREAD_STATE_INIT=0,
+	MESSAGE_CONTROLLER_THREAD_STATE_SERVICE_TASKS,
+
+	/* TODO: Define states used by the application state machine. */
+
+} MESSAGE_CONTROLLER_THREAD_STATES;
+
+
+// *****************************************************************************
+/* Application Data
+
+  Summary:
+    Holds application data
+
+  Description:
+    This structure holds the application's data.
+
+  Remarks:
+    Application strings and buffers are be defined outside this structure.
+ */
+
+typedef struct
+{
+    /* The application's current state */
+    MESSAGE_CONTROLLER_THREAD_STATES state;
+
+    /* TODO: Define any additional data used by the application. */
+
+} MESSAGE_CONTROLLER_THREAD_DATA;
+
+
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Callback Routines
+// *****************************************************************************
+// *****************************************************************************
+/* These routines are called by drivers when certain events occur.
+*/
+	
+// *****************************************************************************
+// *****************************************************************************
+// Section: Application Initialization and State Machine Functions
+// *****************************************************************************
+// *****************************************************************************
 
 /*******************************************************************************
   Function:
-    void RX_THREAD_Initialize ( void )
+    void MESSAGE_CONTROLLER_THREAD_Initialize ( void )
 
   Summary:
      MPLAB Harmony application initialization routine.
 
   Description:
-    This function initializes the Harmony application.  It places the
-    application in its initial state and prepares it to run so that its
+    This function initializes the Harmony application.  It places the 
+    application in its initial state and prepares it to run so that its 
     APP_Tasks function can be called.
 
   Precondition:
@@ -92,19 +156,19 @@ extern "C" {
 
   Example:
     <code>
-    RX_THREAD_Initialize();
+    MESSAGE_CONTROLLER_THREAD_Initialize();
     </code>
 
   Remarks:
     This routine must be called from the SYS_Initialize function.
 */
 
-void RX_THREAD_Initialize ( void );
+void MESSAGE_CONTROLLER_THREAD_Initialize ( void );
 
 
 /*******************************************************************************
   Function:
-    void RX_THREAD_Tasks ( void )
+    void MESSAGE_CONTROLLER_THREAD_Tasks ( void )
 
   Summary:
     MPLAB Harmony Demo application tasks function
@@ -125,19 +189,17 @@ void RX_THREAD_Initialize ( void );
 
   Example:
     <code>
-    RX_THREAD_Tasks();
+    MESSAGE_CONTROLLER_THREAD_Tasks();
     </code>
 
   Remarks:
     This routine must be called from SYS_Tasks() routine.
  */
 
-void RX_THREAD_Tasks( void );
+void MESSAGE_CONTROLLER_THREAD_Tasks( void );
 
-void RX_THREAD_ReadFromQueue(void* pvBuffer);
 
-void RX_THREAD_InitializeQueue();
-#endif /* _RX_THREAD_H */
+#endif /* _MESSAGE_CONTROLLER_THREAD_H */
 
 //DOM-IGNORE-BEGIN
 #ifdef __cplusplus
@@ -148,3 +210,4 @@ void RX_THREAD_InitializeQueue();
 /*******************************************************************************
  End of File
  */
+

@@ -262,5 +262,5 @@ build/default/production/_ext/1688732426/system_init.o:  \
  ../src/control.h  \
 ../src/system_config/default/system_definitions.h  \
  ../src/motor.h  \
-../src/uart_tx.h  \
-../src/uart_rx.h 
+../src/tx_thread.h  \
+../src/rx_thread.h 

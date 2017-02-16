@@ -190,6 +190,7 @@ void SYS_Initialize ( void* data )
     MOTOR_Initialize();
     TX_THREAD_Initialize();
     RX_THREAD_Initialize();
+    MESSAGE_CONTROLLER_THREAD_Initialize();
 }
 
 

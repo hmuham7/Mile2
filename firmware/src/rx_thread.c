@@ -1,9 +1,9 @@
 /*******************************************************************************
   MPLAB Harmony Application Source File
-  
+
   Company:
     Microchip Technology Inc.
-  
+
   File Name:
     rx_thread.c
 
@@ -11,8 +11,8 @@
     This file contains the source code for the MPLAB Harmony application.
 
   Description:
-    This file contains the source code for the MPLAB Harmony application.  It 
-    implements the logic of the application's state machine and it may call 
+    This file contains the source code for the MPLAB Harmony application.  It
+    implements the logic of the application's state machine and it may call
     API routines of other MPLAB Harmony modules in the system, such as drivers,
     system services, and middleware.  However, it does not call any of the
     system interfaces (such as the "Initialize" and "Tasks" functions) of any of
@@ -49,60 +49,20 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 
 // *****************************************************************************
 // *****************************************************************************
-// Section: Included Files 
+// Section: Included Files
 // *****************************************************************************
 // *****************************************************************************
 
 #include "rx_thread.h"
+//#include "rx_thread_public.h"
+#include "debug.h"
+#include "messages.h"
+#include "message_controller_thread.h"
+#include <stdbool.h>
+static QueueHandle_t _queue;
 
-// *****************************************************************************
-// *****************************************************************************
-// Section: Global Data Definitions
-// *****************************************************************************
-// *****************************************************************************
-
-// *****************************************************************************
-/* Application Data
-
-  Summary:
-    Holds application data
-
-  Description:
-    This structure holds the application's data.
-
-  Remarks:
-    This structure should be initialized by the APP_Initialize function.
-    
-    Application strings and buffers are be defined outside this structure.
-*/
-
-RX_THREAD_DATA rx_threadData;
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Callback Functions
-// *****************************************************************************
-// *****************************************************************************
-
-/* TODO:  Add any necessary callback functions.
-*/
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Local Functions
-// *****************************************************************************
-// *****************************************************************************
-
-
-/* TODO:  Add any necessary local functions.
-*/
-
-
-// *****************************************************************************
-// *****************************************************************************
-// Section: Application Initialization and State Machine Functions
-// *****************************************************************************
-// *****************************************************************************
+#define TYPEOFQUEUE char
+#define SIZEOFQUEUE 4096
 
 /*******************************************************************************
   Function:
@@ -114,13 +74,8 @@ RX_THREAD_DATA rx_threadData;
 
 void RX_THREAD_Initialize ( void )
 {
-    /* Place the App state machine in its initial state. */
-    rx_threadData.state = RX_THREAD_STATE_INIT;
-
-    
-    /* TODO: Initialize your application's state machine and other
-     * parameters.
-     */
+    RX_THREAD_InitializeQueue();
+    SYS_INT_SourceEnable(INT_SOURCE_USART_1_RECEIVE);
 }
 
 
@@ -134,43 +89,50 @@ void RX_THREAD_Initialize ( void )
 
 void RX_THREAD_Tasks ( void )
 {
+    dbgOutputLoc(ENTER_RXTHREAD);
+    dbgOutputLoc(BEFORE_WHILELOOP_RXTHREAD);
+    //MessageObj obj;
+    //obj.Type = EXTERNAL_REQUEST_RESPONSE;
+    char c;
+    while(1){
+        dbgOutputLoc(BEFORE_RECEIVE_FR_QUEUE_RXTHREAD);
+        RX_THREAD_ReadFromQueue(&c);
+        dbgOutputLoc(AFTER_RECEIVE_FR_QUEUE_RXTHREAD);
+        //bool isComplete = ParseMessage(c, obj.External.Data, &obj.External.Source, &obj.External.MessageCount, &obj.External.Error);
+        //dbgOutputVal(isComplete);
+        //if(isComplete) {
+            /*Since we returned true we assume the message is valid*/
+        //    MESSAGE_CONTROLLER_THREAD_SendToQueue(obj);
+        //}
+        //else if(obj.External.Error) {
+        //    MESSAGE_CONTROLLER_THREAD_SendToQueue(obj);
+        //}
+    }
+    dbgOutputLoc(LEAVE_RXTHREAD);
+}
 
-    /* Check the application's current state. */
-    switch ( rx_threadData.state )
-    {
-        /* Application's initial state. */
-        case RX_THREAD_STATE_INIT:
-        {
-            bool appInitialized = true;
-       
-        
-            if (appInitialized)
-            {
-            
-                rx_threadData.state = RX_THREAD_STATE_SERVICE_TASKS;
-            }
-            break;
-        }
-
-        case RX_THREAD_STATE_SERVICE_TASKS:
-        {
-        
-            break;
-        }
-
-        /* TODO: implement your application state machine.*/
-        
-
-        /* The default state should never be executed. */
-        default:
-        {
-            /* TODO: Handle error in application's state machine. */
-            break;
-        }
+void RX_THREAD_InitializeQueue() {
+    _queue = xQueueCreate(SIZEOFQUEUE, sizeof(TYPEOFQUEUE));
+    if(_queue == 0) {
+        /*Handle this Error*/
+        dbgOutputBlock(pdFALSE);
     }
 }
 
- 
+void RX_THREAD_ReadFromQueue(void* pvBuffer) {
+    dbgOutputLoc(BEFORE_RECEIVE_FR_QUEUE_READFROMQUEUE_RXTHREAD);
+    xQueueReceive(_queue, pvBuffer, portMAX_DELAY);
+    dbgOutputLoc(AFTER_RECEIVE_FR_QUEUE_READFROMQUEUE_RXTHREAD);
+}
+
+void RX_THREAD_SendToQueue(char buffer) {
+    xQueueSendToBack(_queue, &buffer, portMAX_DELAY);
+}
+
+void RX_THREAD_SendToQueueISR(char buffer, BaseType_t *pxHigherPriorityTaskWoken) {
+    xQueueSendToBackFromISR(_queue, &buffer, pxHigherPriorityTaskWoken);
+}
+
 
 /*******************************************************************************
  End of File

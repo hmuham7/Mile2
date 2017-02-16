@@ -1,6 +1,6 @@
-build/default/production/_ext/1360937237/uart_rx.o:  \
-../src/uart_rx.c  \
- ../src/uart_rx.h  \
+build/default/production/_ext/1360937237/tx_thread.o:  \
+../src/tx_thread.c  \
+ ../src/tx_thread.h  \
 ../src/system_config/default/system_config.h  \
  ../src/system_config/default/system_definitions.h  \
  ../../../../framework/system/common/sys_common.h  \
@@ -261,5 +261,5 @@ build/default/production/_ext/1360937237/uart_rx.o:  \
  ../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h  \
  ../src/control.h  \
 ../src/motor.h  \
-../src/uart_tx.h  \
-../src/uart_rx.h 
+../src/tx_thread.h  \
+../src/rx_thread.h 

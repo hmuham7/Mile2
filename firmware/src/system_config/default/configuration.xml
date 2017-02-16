@@ -280,6 +280,10 @@
         <Checksum>115DDE4372E58D4116BC77DC36FD97DC</Checksum>
       </Template>
       <Template>
+        <Name>message_controller_thread.c</Name>
+        <Path>Source Files/app</Path>
+      </Template>
+      <Template>
         <Name>FreeRTOSConfig.h</Name>
         <Path>Header Files/app/system_config/default</Path>
         <Checksum>49E1D79515E4FAFAF2C7B504336BD46C</Checksum>
@@ -301,7 +305,7 @@
       <Template>
         <Name>system_interrupt.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>4F9CBEBBB7489065C68E5C5237AE390D</Checksum>
+        <Checksum>25CBC2DD84247921EE42A8393051D792</Checksum>
       </Template>
       <Template>
         <Name>sys_clk_static.c</Name>
@@ -316,16 +320,20 @@
       <Template>
         <Name>system_init.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>353A33F58DCC2CF4D2A8A6A16239C513</Checksum>
+        <Checksum>BE44426EE751E28F7550F4837739923F</Checksum>
       </Template>
       <Template>
         <Name>main.c</Name>
         <Path>Source Files/app</Path>
       </Template>
       <Template>
+        <Name>message_controller_thread.h</Name>
+        <Path>Header Files/app</Path>
+      </Template>
+      <Template>
         <Name>system_definitions.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>85B3A8E80D2C35BEFA729D7E00E0F9AB</Checksum>
+        <Checksum>66963B20BF27447BC6E7281BE602F124</Checksum>
       </Template>
       <Template>
         <Name>system_exceptions.c</Name>
@@ -348,7 +356,7 @@
       <Template>
         <Name>system_tasks.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>04E7EC61F5C0E1C43ED5476605F98AF8</Checksum>
+        <Checksum>5E630C471A5F6BC4D687F66D7F465A8D</Checksum>
       </Template>
       <Template>
         <Name>control.h</Name>
@@ -361,7 +369,7 @@
       <Template>
         <Name>system_config.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>18FC2F2DB47DCA7A86E7F46FA0860D9E</Checksum>
+        <Checksum>D0CA55FED8605E5C7E76177F08B04BD0</Checksum>
       </Template>
       <Template>
         <Name>drv_tmr_static.c</Name>

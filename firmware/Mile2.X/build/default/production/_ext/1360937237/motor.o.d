@@ -261,5 +261,5 @@ build/default/production/_ext/1360937237/motor.o:  \
  ../../../../framework/peripheral/ports/processor/../templates/ports_ChangeNoticeEdgeStatus_Unsupported.h  \
  ../src/control.h  \
 ../src/motor.h  \
-../src/uart_tx.h  \
-../src/uart_rx.h 
+../src/tx_thread.h  \
+../src/rx_thread.h 

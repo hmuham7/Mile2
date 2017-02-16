@@ -58,6 +58,7 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "motor.h"
 #include "tx_thread.h"
 #include "rx_thread.h"
+#include "message_controller_thread.h"
 
 
 // *****************************************************************************
@@ -73,6 +74,7 @@ static void _CONTROL_Tasks(void);
 static void _MOTOR_Tasks(void);
 static void _TX_THREAD_Tasks(void);
 static void _RX_THREAD_Tasks(void);
+static void _MESSAGE_CONTROLLER_THREAD_Tasks(void);
 
 
 // *****************************************************************************
@@ -114,6 +116,11 @@ void SYS_Tasks ( void )
     /* Create OS Thread for RX_THREAD Tasks. */
     xTaskCreate((TaskFunction_t) _RX_THREAD_Tasks,
                 "RX_THREAD Tasks",
+                1024, NULL, 1, NULL);
+
+    /* Create OS Thread for MESSAGE_CONTROLLER_THREAD Tasks. */
+    xTaskCreate((TaskFunction_t) _MESSAGE_CONTROLLER_THREAD_Tasks,
+                "MESSAGE_CONTROLLER_THREAD Tasks",
                 1024, NULL, 1, NULL);
 
     /**************
@@ -159,7 +166,6 @@ static void _CONTROL_Tasks(void)
     while(1)
     {
         CONTROL_Tasks();
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
 
@@ -177,7 +183,6 @@ static void _MOTOR_Tasks(void)
     while(1)
     {
         MOTOR_Tasks();
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
 
@@ -195,7 +200,6 @@ static void _TX_THREAD_Tasks(void)
     while(1)
     {
         TX_THREAD_Tasks();
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
 
@@ -213,7 +217,23 @@ static void _RX_THREAD_Tasks(void)
     while(1)
     {
         RX_THREAD_Tasks();
-        vTaskDelay(1000 / portTICK_PERIOD_MS);
+    }
+}
+
+
+/*******************************************************************************
+  Function:
+    void _MESSAGE_CONTROLLER_THREAD_Tasks ( void )
+
+  Summary:
+    Maintains state machine of MESSAGE_CONTROLLER_THREAD.
+*/
+
+static void _MESSAGE_CONTROLLER_THREAD_Tasks(void)
+{
+    while(1)
+    {
+        MESSAGE_CONTROLLER_THREAD_Tasks();
     }
 }
 
