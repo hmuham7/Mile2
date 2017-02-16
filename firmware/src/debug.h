@@ -1,7 +1,7 @@
 /* 
  * File:   debug.h
  * Author: Team8
- *
+ * 
  *
  */
 
@@ -49,8 +49,7 @@ extern "C" {
 #define AFTER_SEND_TO_QUEUE_TXTHREAD        0x34
 #define BEFORE_RECEIVE_FR_QUEUE_TXTHREAD    0x35
 #define AFTER_RECEIVE_FR_QUEUE_TXTHREAD     0x36
-    
-//Messages.c Debug
+    // Milestone 2 Message.c debug values
 #define ENTER_CHECKSUM_MESSAGE_C                                0x40
 #define LEAVE_CHECKSUM_MESSAGE_C                                0x41
 #define ENTER_CREATEMESSAGE_MESSAGE_C                           0x42
@@ -58,7 +57,7 @@ extern "C" {
 #define ENTER_PARSEMESSAGE_MESSAGE_C                            0x44
 #define LEAVE_PARSEMESSAGE_MESSAGE_C                            0x45
 #define CASE_IDLE_STATE_PARSEMESSAGE_MESSAGE_C                  0x46
-#define ASE_CHECK_DESTINATION_CHAR_PARSEMESSAGE_MESSAGE_C       0x47
+#define CASE_CHECK_DESTINATION_CHAR_PARSEMESSAGE_MESSAGE_C      0x47
 #define CASE_CHECK_SOURCE_CHAR_PARSEMESSAGE_MESSAGE_C           0x48
 #define CASE_CHECK_MESSAGE_COUNT_PARSEMESSAGE_MESSAGE_C         0x49
 #define CASE_GET_DATALENGTH_UPPER_PARSEMESSAGE_MESSAGE_C        0x50

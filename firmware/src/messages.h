@@ -26,6 +26,13 @@
 #define STARTOFTEXT 0x02
 #define ENDOFTEXT 0x03
 #define MAXMESSAGESIZE 300
+#define SENSOR_ROVER 'SR'
+#define TAG_ROVER 'TR'
+#define FLAG_ROVER 'FR'
+#define COUNTERMEASURE_ROVER 'CMR'
+#define SERVER 'S'
+#define MYMODULE SENSOR_ROVER
+#define MYMODULESTRING "sensorrover"
 
 #define INJECTERRORS 0
 
