@@ -56,8 +56,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system_definitions.h"
 #include "control.h"
 #include "motor.h"
-#include "uart_tx.h"
-#include "uart_rx.h"
+#include "tx_thread.h"
+#include "rx_thread.h"
 
 
 // *****************************************************************************
@@ -71,8 +71,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 static void _SYS_Tasks ( void );
 static void _CONTROL_Tasks(void);
 static void _MOTOR_Tasks(void);
-static void _UART_TX_Tasks(void);
-static void _UART_RX_Tasks(void);
+static void _TX_THREAD_Tasks(void);
+static void _RX_THREAD_Tasks(void);
 
 
 // *****************************************************************************
@@ -106,14 +106,14 @@ void SYS_Tasks ( void )
                 "MOTOR Tasks",
                 1024, NULL, 1, NULL);
 
-    /* Create OS Thread for UART_TX Tasks. */
-    xTaskCreate((TaskFunction_t) _UART_TX_Tasks,
-                "UART_TX Tasks",
+    /* Create OS Thread for TX_THREAD Tasks. */
+    xTaskCreate((TaskFunction_t) _TX_THREAD_Tasks,
+                "TX_THREAD Tasks",
                 1024, NULL, 1, NULL);
 
-    /* Create OS Thread for UART_RX Tasks. */
-    xTaskCreate((TaskFunction_t) _UART_RX_Tasks,
-                "UART_RX Tasks",
+    /* Create OS Thread for RX_THREAD Tasks. */
+    xTaskCreate((TaskFunction_t) _RX_THREAD_Tasks,
+                "RX_THREAD Tasks",
                 1024, NULL, 1, NULL);
 
     /**************
@@ -184,17 +184,17 @@ static void _MOTOR_Tasks(void)
 
 /*******************************************************************************
   Function:
-    void _UART_TX_Tasks ( void )
+    void _TX_THREAD_Tasks ( void )
 
   Summary:
-    Maintains state machine of UART_TX.
+    Maintains state machine of TX_THREAD.
 */
 
-static void _UART_TX_Tasks(void)
+static void _TX_THREAD_Tasks(void)
 {
     while(1)
     {
-        UART_TX_Tasks();
+        TX_THREAD_Tasks();
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }
@@ -202,17 +202,17 @@ static void _UART_TX_Tasks(void)
 
 /*******************************************************************************
   Function:
-    void _UART_RX_Tasks ( void )
+    void _RX_THREAD_Tasks ( void )
 
   Summary:
-    Maintains state machine of UART_RX.
+    Maintains state machine of RX_THREAD.
 */
 
-static void _UART_RX_Tasks(void)
+static void _RX_THREAD_Tasks(void)
 {
     while(1)
     {
-        UART_RX_Tasks();
+        RX_THREAD_Tasks();
         vTaskDelay(1000 / portTICK_PERIOD_MS);
     }
 }

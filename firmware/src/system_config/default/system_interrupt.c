@@ -63,8 +63,8 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include <sys/attribs.h>
 #include "control.h"
 #include "motor.h"
-#include "uart_tx.h"
-#include "uart_rx.h"
+#include "tx_thread.h"
+#include "rx_thread.h"
 #include "system_definitions.h"
 
 // *****************************************************************************

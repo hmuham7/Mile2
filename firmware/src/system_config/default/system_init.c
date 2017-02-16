@@ -188,8 +188,8 @@ void SYS_Initialize ( void* data )
     /* Initialize the Application */
     CONTROL_Initialize();
     MOTOR_Initialize();
-    UART_TX_Initialize();
-    UART_RX_Initialize();
+    TX_THREAD_Initialize();
+    RX_THREAD_Initialize();
 }
 
 

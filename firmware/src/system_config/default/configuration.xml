@@ -257,6 +257,10 @@
         <Checksum>208C38F4220EB3D701B5B9CC9CB6A378</Checksum>
       </Template>
       <Template>
+        <Name>tx_thread.h</Name>
+        <Path>Header Files/app</Path>
+      </Template>
+      <Template>
         <Name>drv_tmr_static.h</Name>
         <Path>Header Files/app/system_config/default/framework/driver/tmr</Path>
         <Checksum>5B1227C9C8A50A58EB2DAB66BF09B4E6</Checksum>
@@ -267,13 +271,13 @@
         <Checksum>0651845480D5D3E21D8BF17EE68DBEAC</Checksum>
       </Template>
       <Template>
+        <Name>tx_thread.c</Name>
+        <Path>Source Files/app</Path>
+      </Template>
+      <Template>
         <Name>drv_usart_mapping.c</Name>
         <Path>Source Files/app/system_config/default/framework/driver/usart/src</Path>
         <Checksum>115DDE4372E58D4116BC77DC36FD97DC</Checksum>
-      </Template>
-      <Template>
-        <Name>uart_rx.c</Name>
-        <Path>Source Files/app</Path>
       </Template>
       <Template>
         <Name>FreeRTOSConfig.h</Name>
@@ -297,7 +301,7 @@
       <Template>
         <Name>system_interrupt.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>3874DC2BDA90EF943F28D1FC2433C69E</Checksum>
+        <Checksum>4F9CBEBBB7489065C68E5C5237AE390D</Checksum>
       </Template>
       <Template>
         <Name>sys_clk_static.c</Name>
@@ -312,20 +316,16 @@
       <Template>
         <Name>system_init.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>83CD1AD3F4F6361721C866054BAD07DA</Checksum>
+        <Checksum>353A33F58DCC2CF4D2A8A6A16239C513</Checksum>
       </Template>
       <Template>
         <Name>main.c</Name>
         <Path>Source Files/app</Path>
       </Template>
       <Template>
-        <Name>uart_tx.h</Name>
-        <Path>Header Files/app</Path>
-      </Template>
-      <Template>
         <Name>system_definitions.h</Name>
         <Path>Header Files/app/system_config/default</Path>
-        <Checksum>F3F28D36FF20BBE262F61E3347EAE271</Checksum>
+        <Checksum>85B3A8E80D2C35BEFA729D7E00E0F9AB</Checksum>
       </Template>
       <Template>
         <Name>system_exceptions.c</Name>
@@ -333,16 +333,12 @@
         <Checksum>C111969CA43D6CEA1E9E33A6164E7AE0</Checksum>
       </Template>
       <Template>
-        <Name>uart_tx.c</Name>
-        <Path>Source Files/app</Path>
-      </Template>
-      <Template>
         <Name>motor.c</Name>
         <Path>Source Files/app</Path>
       </Template>
       <Template>
-        <Name>uart_rx.h</Name>
-        <Path>Header Files/app</Path>
+        <Name>rx_thread.c</Name>
+        <Path>Source Files/app</Path>
       </Template>
       <Template>
         <Name>drv_usart_static.h</Name>
@@ -352,10 +348,14 @@
       <Template>
         <Name>system_tasks.c</Name>
         <Path>Source Files/app/system_config/default</Path>
-        <Checksum>44A0A2024CBE23D3779C2E318AEF9B5F</Checksum>
+        <Checksum>04E7EC61F5C0E1C43ED5476605F98AF8</Checksum>
       </Template>
       <Template>
         <Name>control.h</Name>
+        <Path>Header Files/app</Path>
+      </Template>
+      <Template>
+        <Name>rx_thread.h</Name>
         <Path>Header Files/app</Path>
       </Template>
       <Template>
